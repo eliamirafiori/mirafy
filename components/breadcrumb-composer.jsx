@@ -15,7 +15,25 @@ export default function BreadcrumbComposer() {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
   console.log(segments);
+  return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem className="hidden md:block">
+          <BreadcrumbLink href="/">Building Your Application</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator className="hidden md:block" />
+        <BreadcrumbItem className="hidden md:block">
+          <BreadcrumbLink href="/">Building Your Application</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator className="hidden md:block" />
+        <BreadcrumbItem className="hidden md:block">
+          <BreadcrumbLink href="/">Building Your Application</BreadcrumbLink>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  );
 
+  /*
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -29,7 +47,7 @@ export default function BreadcrumbComposer() {
             segment.charAt(0).toUpperCase() + segment.slice(1);
           return (
             <>
-              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbSeparator key={href} className="hidden md:block" />
               <BreadcrumbItem key={href} className="hidden md:block">
                 <BreadcrumbLink href={href}>
                   {capitalized.replace(/-/g, " ")}
@@ -41,4 +59,5 @@ export default function BreadcrumbComposer() {
       </BreadcrumbList>
     </Breadcrumb>
   );
+  */
 }
