@@ -1,10 +1,11 @@
 import { Figtree } from "next/font/google";
 
-import Sidebar from "@/components/sidebar/sidebar";
+import { ThemeProvider } from "../components/theme-provider";
+import Sidebar from "@/components_old/sidebar/sidebar";
 
 import "./globals.css";
-import Topbar from "@/components/topbar/topbar";
-import Bottombar from "@/components/bottombar/bottombar";
+import Topbar from "@/components_old/topbar/topbar";
+import Bottombar from "@/components_old/bottombar/bottombar";
 
 const font = Figtree({
   subsets: ["latin"],
@@ -17,11 +18,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={font.className}>
-        <Topbar />
-        <Sidebar>{children}</Sidebar>
-        <Bottombar />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

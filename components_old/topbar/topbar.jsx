@@ -1,6 +1,6 @@
 import { FaSpotify } from "react-icons/fa";
 
-import Searchbar from "@/components/topbar/searchbar";
+import Searchbar from "@/components_old/topbar/searchbar";
 
 import ProfileIcon from "./profile_icon";
 

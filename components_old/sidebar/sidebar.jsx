@@ -1,6 +1,6 @@
-import BoxWrapper from "@/components/box_wrapper";
-import SidebarItem from "@/components/sidebar/sidebar_item";
-import Library from "@/components/sidebar/library";
+import BoxWrapper from "@/components_old/box_wrapper";
+import SidebarItem from "@/components_old/sidebar/sidebar_item";
+import Library from "@/components_old/sidebar/library";
 
 export default function Sidebar({ children }) {
   return (
