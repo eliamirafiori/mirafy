@@ -190,10 +190,14 @@ NextJS recognizes the environment automatically, based on the command given.
 2:02:00 - Using Zustand
 4:03:00 - Music Player
 
-### UI Library - [Shadcn UI](https://ui.shadcn.com/docs/)
+### Play Sound - [use-sound](https://www.npmjs.com/package/use-sound)
+
+### UI Library
+
+#### [Shadcn UI](https://ui.shadcn.com/docs/)
 
 [Components](https://ui.shadcn.com/docs/components)
 
-### UI Library - [HeroUI](https://www.heroui.com/docs/frameworks/nextjs)
+#### [HeroUI](https://www.heroui.com/docs/frameworks/nextjs)
 
 [Components](https://www.heroui.com/docs/components/)
