@@ -128,10 +128,6 @@ conda remove --name env_name --all
 conda create --name clone_env_name --clone env_name
 ```
 
-## Docker
-
-TODO
-
 ## NextJS
 
 ### Install the required packages
@@ -201,3 +197,60 @@ NextJS recognizes the environment automatically, based on the command given.
 #### [HeroUI](https://www.heroui.com/docs/frameworks/nextjs)
 
 [Components](https://www.heroui.com/docs/components/)
+
+## Docker
+
+### PostgreSQL
+
+```bash
+docker run -d \
+  --name my-postgres \
+  -e POSTGRES_USER=myuser \
+  -e POSTGRES_PASSWORD=mypassword \
+  -e POSTGRES_DB=mydatabase \
+  -v my_postgres_data:/var/lib/postgresql/data \
+  -p 5432:5432 \
+  postgres
+```
+
+#### Breakdown of the Command
+
+- `-d`: Run the container in detached mode (in the background).
+
+- `--name my-postgres`: Assign a name to the container for easier management.
+
+- `-e POSTGRES_USER=myuser`: Set the default PostgreSQL user to myuser.
+
+- `-e POSTGRES_PASSWORD=mypassword`: Set the password for the default user.
+
+- `-e POSTGRES_DB=mydatabase`: Create a default database named mydatabase.
+
+- `-v my_postgres_data:/var/lib/postgresql/data`: Mount a named volume my_postgres_data to persist database data across container restarts.
+
+- `-p 5432:5432`: Expose PostgreSQL's default port 5432 to the host machine, allowing external connections.
+
+- `postgres`: Use the official PostgreSQL image from Docker Hub.
+
+When you create a named volume in Docker, such as `my_postgres_data`, Docker manages its storage location.
+
+In Linux by default, Docker stores volumes in the directory `/var/lib/docker/volumes/`. For a volume named `my_postgres_data`, the data would typically be located at `/var/lib/docker/volumes/my_postgres_data/_data`.
+
+### FastAPI
+
+By default, Uvicorn binds to `127.0.0.1`, which is only accessible from within the container. To make your FastAPI app accessible from outside the container, you need to bind it to `0.0.0.0`.
+
+Run the following command to create the Docker Image:
+
+```bash
+docker build -t mirafy:test .
+```
+
+The last "." specify the location of the Dockerfile.
+
+Run the following command to create the Docker Container:
+
+```bash
+docker run -d --rm -p 8000:8000 mirafy:test
+```
+
+The "-p" flag specifies the port to be mapped "-p host_port:container_port".

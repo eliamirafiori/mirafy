@@ -61,7 +61,7 @@ export function AppSidebar({ ...props }) {
           <FaSpotify size={55} />
           <p className="text-5xl font-bold">Mirafy</p>
         </div>
-        <p className="text-2xl font-semibold">Enjoy the music</p>
+        <p className="text-2xl font-semibold">Shape of the music</p>
       </SidebarHeader>
       <SidebarContent>
         <NavLibrary songs={data.library} />
