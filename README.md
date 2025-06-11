@@ -201,6 +201,10 @@ NextJS recognizes the environment automatically, based on the command given.
 
 - [Components](https://www.heroui.com/docs/components/)
 
+### Internationalization
+
+- [next-intl](https://next-intl.dev/docs/getting-started/app-router/with-i18n-routing)
+
 ## Docker
 
 ### PostgreSQL
@@ -278,7 +282,29 @@ After installation, you can confirm that the extension is active by running the 
 SELECT * FROM pg_extension WHERE extname = 'vector';
 ```
 
+### MySQL
+
+TODO
+
 ### FastAPI
+
+#### Connect to a PostgreSQL DBMS
+
+In order to connect FastAPI to a PostgreSQL DBMS, we need to install the following package:
+
+```bash
+pip install "psycopg[binary]"
+```
+
+This package will allow us to connect and communicate with PostgreSQL.
+
+Later, to actually connect the two parts, the dbms URL should look like:
+
+```python
+postgresql_url = f"postgresql+psycopg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
+```
+
+#### General Info
 
 By default, Uvicorn binds to `127.0.0.1`, which is only accessible from within the container. To make your FastAPI app accessible from outside the container, you need to bind it to `0.0.0.0`.
 
