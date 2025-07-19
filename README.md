@@ -130,6 +130,10 @@ conda create --name clone_env_name --clone env_name
 
 ## NextJS
 
+```bash
+npx create-next-app@latest
+```
+
 ### Install the required packages
 
 ```bash
@@ -151,7 +155,7 @@ npm run build
 ### Start the production server
 
 ```bash
-npm run tart
+npm run start
 ```
 
 ### .env\* files
