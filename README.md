@@ -288,7 +288,81 @@ SELECT * FROM pg_extension WHERE extname = 'vector';
 
 ### MySQL
 
-TODO
+1. For Linux distributions, otherwise set this into a **Dockerfile**:
+   1. On **Fedora**:
+
+        ```bash
+        sudo dnf install -y \
+            mysql-devel \
+            gcc \
+            python3-devel \
+            pkgconfig \
+            redhat-rpm-config \
+            && dnf clean all
+        ```
+
+   2. On **Debian-based**:
+
+        ```bash
+        sudo apt-get update && apt-get install -y \
+            default-libmysqlclient-dev \
+            gcc \
+            python3-dev \
+            pkg-config \
+            build-essential && \
+            rm -rf /var/lib/apt/lists/* && \
+            apt-get clean
+        ```
+
+   3. On **Alpine**:
+
+        ```bash
+        sudo apk add --no-cache \
+            mariadb-dev \
+            gcc \
+            python3-dev \
+            pkgconfig \
+            build-base
+        ```
+
+2. Create a Docker network:
+
+    ```bash
+        sudo docker network create mirafeat-network
+    ```
+
+3. Start MySQL container:
+
+    1. Use the following command:
+
+        ```bash
+        sudo docker run --name mirafeat_db \
+            --network mirafeat-network \
+            -e MYSQL_ROOT_PASSWORD=MiraFEAT25 \
+            -e MYSQL_DATABASE=mirafeat_db \
+            -e MYSQL_USER=mira \
+            -e MYSQL_PASSWORD=MiraFEAT25 \
+            -p 3306:3306 \
+            -d mysql:9.4.0
+        ```
+
+4. Build `mirafeat_be` image:
+
+    1. Use the following command:
+
+        ```bash
+        sudo docker build -t mirafeat_be .
+        ```
+
+5. Start `mirafeat_be` container:
+   1. Use the following command:
+
+        ```bash
+        sudo docker run --name mirafeat_be \
+            --network mirafeat-network \
+            -p 8000:8000 \
+            -d mirafeat_be
+        ```
 
 ### FastAPI
 
@@ -308,9 +382,33 @@ Later, to actually connect the two parts, the dbms URL should look like:
 postgresql_url = f"postgresql+psycopg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_SERVER}:{POSTGRES_PORT}/{POSTGRES_DB}"
 ```
 
+#### Connect to a MySQL DBMS
+
+It's very important to craete a Docker network as said above.
+
+On FastAPI, you need to specify the NAMe, not the IP, of the MySQL container.
+
+You can specify it on the `.env` file:
+
+```env
+MYSQL_SERVER=my-sql-container # Name of the MySQL container
+MYSQL_PORT=3306
+MYSQL_DB=my-db-name
+MYSQL_USER=my-user-name
+MYSQL_PASSWORD=my-user-password
+```
+
+To actually connect the two parts, the dbms URL should look like:
+
+```python
+mysql_url = f"mysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_SERVER}:{MYSQL_PORT}/{MYSQL_DB}"
+```
+
 #### General Info
 
 By default, Uvicorn binds to `127.0.0.1`, which is only accessible from within the container. To make your FastAPI app accessible from outside the container, you need to bind it to `0.0.0.0`.
+
+In the Dockerfile you can specify `--host 0.0.0.0` in the CMD command.
 
 Run the following command to create the Docker Image:
 
